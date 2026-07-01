@@ -21,3 +21,15 @@ def create_category(data:schemas.CategoryCreate, db:Session = Depends(get_db)):
 
     #return {"status": "ok", "message": "Category created successfully", "data": category}
     return category
+
+@router.get("/{category_id}", response_model=schemas.CategoryResponse)
+def get_category(category_id: int, db: Session = Depends(get_db)):
+    cat = crud.get_category(db, category_id)
+    if not cat:
+        raise HTTPException(status_code=404, detail="Category not found")
+    return cat
+
+@router.delete("/{category_id}", status_code=204)
+def delete_category(category_id: int, db: Session = Depends(get_db)):
+    if not crud.delete_category(db, category_id):
+        raise HTTPException(status_code=404, detail="Category not found")

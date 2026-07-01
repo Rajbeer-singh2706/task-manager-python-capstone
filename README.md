@@ -14,6 +14,15 @@ uvicorn app.main:app --reload
 curl -X POST http://localhost:8000/categories/ -H "Content-Type: application/json" -d '{"name": "Work" , "color": "#FF0000"}'
 curl http://127.0.0.1:8000/categories/
 
+### Search By ID 
+# http://localhost:8000/categories/1
+
+#### Delete By ID 
+curl -X DELETE http://127.0.0.1:8000/categories/1
+
+
+###################### SWAGGER #######################
+localhost:8000/docs
 
 task_manager/
 ├── app/
