@@ -9,6 +9,11 @@ uvicorn app.main:app --reload
 
 # http://localhost:8000/docs
 
+### POST #########
+
+curl -X POST http://localhost:8000/categories/ -H "Content-Type: application/json" -d '{"name": "Work" , "color": "#FF0000"}'
+curl http://127.0.0.1:8000/categories/
+
 
 task_manager/
 ├── app/
