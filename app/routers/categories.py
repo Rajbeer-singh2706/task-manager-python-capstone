@@ -33,3 +33,19 @@ def get_category(category_id: int, db: Session = Depends(get_db)):
 def delete_category(category_id: int, db: Session = Depends(get_db)):
     if not crud.delete_category(db, category_id):
         raise HTTPException(status_code=404, detail="Category not found")
+
+
+@router.put("/{category_id}", response_model=schemas.CategoryResponse)
+def update_category(
+    category_id: int,
+    data:schemas.CategoryUpdate,
+    db: Session = Depends(get_db)
+):
+    if data.name is not None:
+        existing = crud.get_category_by_name(db,data.name)
+        if existing and existing.id != category_id:
+            raise HTTPException(status_code=409, detail="Category name already exists")
+        cat = crud.update_category(db,category_id,data)
+        if not cat:
+            raise HTTPException(status_code=409, detail="Category name already exists")
+        return cat

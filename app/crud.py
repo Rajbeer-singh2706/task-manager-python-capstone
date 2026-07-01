@@ -24,3 +24,17 @@ def delete_category(db: Session, category_id: int) -> bool:
     db.delete(obj)
     db.commit()
     return True
+
+def update_category(
+        db: Session, 
+        category_id: int, 
+        data:schemas.CategoryUpdate
+) -> models.Category | None:
+    obj = get_category(db, category_id)
+    if not obj:
+        return None 
+    for k,v in data.model_dump(exclude_unset=True).items():
+        setattr(obj,k,v)
+    db.commit()
+    db.refresh(obj)
+    return obj

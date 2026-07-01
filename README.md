@@ -7,12 +7,12 @@
 $ source .venv/Scripts/activate
 uvicorn app.main:app --reload
 
-# http://localhost:8000/docs
 
-### POST #########
+############# GET ALL ####################
+http://localhost:8000/categories
 
+############# POST #########
 curl -X POST http://localhost:8000/categories/ -H "Content-Type: application/json" -d '{"name": "Work" , "color": "#FF0000"}'
-curl http://127.0.0.1:8000/categories/
 
 ### Search By ID 
 # http://localhost:8000/categories/1
@@ -20,10 +20,15 @@ curl http://127.0.0.1:8000/categories/
 #### Delete By ID 
 curl -X DELETE http://127.0.0.1:8000/categories/1
 
+######## UDPATE #####
+curl -X PUT http://127.0.0.1:8000/categories/1 \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Personal"}'
 
 ###################### SWAGGER #######################
 localhost:8000/docs
 
+############## Project Directory ###############
 task_manager/
 ├── app/
 │   ├── __init__.py
